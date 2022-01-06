@@ -1,0 +1,16 @@
+*png
+images/
+data/
+ARCHIV/
+.idea/
+__pycache__/
+*training_results/
+*training_results_local/
+*.zip
+*.mat
+*.pdf
+*.jpg
+*.tex
+/SignedDistanceFTR
+ftr_derivation.py
+*.un~

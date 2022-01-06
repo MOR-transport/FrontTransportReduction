@@ -58,8 +58,8 @@ class Trainer(object):
         # Set up a kernel to compute the 2D 2nd order central finite difference in along both axes via 2 conv2d channels
         # self.dx = self.X[1, 0] - self.X[0, 0]
         # self.dy = self.Y[0, 1] - self.Y[0, 0]
-        self.dx = self.X[0, 1] - self.X[0, 0]
-        self.dy = self.Y[1, 0] - self.Y[0, 0]
+        self.dx = self.X[0, 1] - self.X[0, 0] if (self.X[0, 1] - self.X[0, 0]) != 0 else self.X[1, 0] - self.X[0, 0]
+        self.dy = self.Y[1, 0] - self.Y[0, 0] if (self.Y[1, 0] - self.Y[0, 0]) != 0 else self.Y[0, 1] - self.Y[0, 0]
         self.D_kernel = torch.zeros([2, 3, 3], device=self.device, dtype=torch.float32)
         self.Dx_kernel = torch.ones([1, 1, 2, 1], device=self.device, dtype=torch.float32) / self.dx
         self.Dy_kernel = torch.ones([1, 1, 1, 2], device=self.device, dtype=torch.float32) / self.dy

@@ -57,7 +57,8 @@ base_bame = './training_results_local/'+case+'/'
 learn_periodic_alphas_dummy = case == 'moving_disk'
 
 skip_existing = True
-decoder_variants = {'FullDec': FTR_Dec}# '1LayDec': FTR_Dec_1Lay}
+# decoder_variants = {'FullDec': FTR_Dec}# '1LayDec': FTR_Dec_1Lay}
+decoder_variants = {'1LayDec': FTR_Dec_1Lay}
 learn_lambda = [False]
 smooth = [0.0000001]
 alpha = [2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 30]

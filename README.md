@@ -11,5 +11,6 @@ This is the repository to the publication:
     }
 
 All Matlab and Python sources are contained in the `lib/` folder. 
-the `examples/` folder, contains the following examples of the paper:
+
+The `examples/` folder, contains the following examples of the paper:
 

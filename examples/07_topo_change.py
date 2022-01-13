@@ -2,12 +2,12 @@ import pathlib, sys
 
 file_path = pathlib.Path(__file__).parent.absolute()
 sys.path.append(str(file_path) + "/../ALM_FTR_Galerkin_python")
+sys.path.append(str(file_path) + "/../lib")
 sys.path.append(str(file_path) + "/../NeuralFTR")
 
 from numpy.linalg import norm
-from lib.FOM import *
-from lib.FTR import *
-from lib.plot_utils import *
+from ROM.FTR import *
+from plot_utils import *
 from NeuralFTR import *
 from compare_compression import *
 
@@ -23,10 +23,10 @@ q, phi_dat = generate_data(X, Y, 1, R, 1, to_torch=False, type="dw", device='cpu
 # %% neurla networks
 data_folder= home+ "/tubcloud/FTR/01_NeuronalFTR/training_results/topo_change/"
 train_results_list=[ {"name": "FN" , "folder": data_folder+"FullDec/","decoder": FTR_Dec}]
-errNN, rank_list = give_NN_errors(q[1::2], train_results_list, periodic=False)
+errNN, rank_list = give_NN_errors(q[1::2], train_results_list)
 
 train_results_list=[ {"name": "FN" , "folder": data_folder+"1LayDec/","decoder": FTR_Dec}]
-errFTR_NN, rank_list = give_NN_errors(q[1::2], train_results_list, periodic=False)
+errFTR_NN, rank_list = give_NN_errors(q[1::2], train_results_list)
 
 
 # %%

@@ -14,3 +14,4 @@ __pycache__/
 /SignedDistanceFTR
 ftr_derivation.py
 *.un~
+./lib/NeuralFTR/__pycache__/

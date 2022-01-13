@@ -20,9 +20,9 @@ kappa = (2*pi/L)*[-N/2:N/2-1];
 kappa = fftshift(kappa');    % Re-order fft wavenumbers
 
 h = x(2)-x(1);
-koefDX = [-1/60 	3/20 	-3/4 	0 	3/4 	-3/20 	1/60] ;
-%koefDX = [1/280, 	-4/105 ,	1/5, 	-4/5, 	0 ,	4/5, 	-1/5, 	4/105 ,	-1/280 ] ;
-%koefDXX=  [ 0 1 -2 1  0 ] ;
+koefDX = [-1/60 	3/20 	-3/4 	0 	3/4 	-3/20 	1/60] ; % finite diffs 6th order
+%koefDX = [1/280, 	-4/105 ,	1/5, 	-4/5, 	0 ,	4/5, 	-1/5, 	4/105 ,	-1/280 ] ; % 8th order
+%koefDXX=  [ 0 1 -2 1  0 ] ; 
 koefDXX= [-1/12 	4/3 	-5/2 	4/3 	-1/12] ;
 %koefDXX = [-1/560 	8/315 	-1/5 	8/5 	-205/72 	8/5 	-1/5 	8/315 	-1/560];
 Dx  = D_generalPeriodic(N, h  ,koefDX  ) ;

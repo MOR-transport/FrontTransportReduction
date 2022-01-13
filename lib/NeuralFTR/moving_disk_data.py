@@ -32,7 +32,7 @@ def f(phi, lam):
     return (np.tanh(phi / lam) + 1) / 2
 
 
-def generate_data(X, Y, t, R, lam, to_torch=False, type="moving_disc", device='cpu'):
+def generate_data(X, Y, t, R, lam, to_torch=False, type="moving_disc", device='cpu', dtype=torch.float32):
     if type == "moving_disc":
         phi_field = phi(X, Y, t, R)
     elif type == "pear":
@@ -70,7 +70,7 @@ def generate_data(X, Y, t, R, lam, to_torch=False, type="moving_disc", device='c
             phi_field = phi_field - Amplitude[i] * np.exp(-sigma[i] * R)
         phi_field = phi_field - T
     q = np.expand_dims(f(phi_field, lam), 1)
-    q = torch.tensor(q, dtype=torch.float32, device=device) if to_torch else q
+    q = torch.tensor(q, dtype=dtype, device=device) if to_torch else q
     return q, phi_field
 
 #@background(max_prefetch=3)

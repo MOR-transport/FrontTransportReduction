@@ -424,6 +424,57 @@ def simple_FTR_torch( q, f, tol=1e-7, max_iter=100, mu= 0.01, dt = 1.0, rank=3, 
     phi_cut = cut_zero_weights(tensorise(phi_n),weights)
     return phi_cut
 
+def FTR_SD(snapshots, threshold=0.5, front_boundary = [0,1], dx = None, Num_support_points = None):
+    """
+
+    :param snapshots: assumed in the order N_1 x N_2 x ... x N_space_dim x N_time
+    :param threshold: threshold at which level set curve of the signed distance (SD) function is computed
+    :param front_boundary: front function is 1D so we have to select values for phi-> -infty and phi-> +infty  usually for a monoton function [0,1]
+    :param dx: size of the lattice [dx_1, dx_2,...,dx_space_dim]
+    :param Num_support_points: how many support points for the interpolation of (phi_i,q_i) i=1,...,Num_support_points
+    :return:
+    """
+    import skfmm
+    from scipy.interpolate import interp1d as interp1d
+
+    number_space_dimensions = np.ndim(snapshots)-1
+    if dx is None:
+        dx = [1 for i in range(number_space_dimensions)]
+    if Num_support_points is None:
+        # assuming the same number of gridpoints in
+        Num_support_points = int(np.sum(np.shape(snapshots[...,-1])) / number_space_dimensions)
+
+    Xgrid = np.meshgrid(*[np.arange(0,Ndim)*dx[i] for i,Ndim in enumerate(np.shape(snapshots)[:number_space_dimensions])])
+    phi_max = np.max(Xgrid)  # maximal value the SD can have is limitted by the domain size
+
+    q = snapshots
+    Nt = np.size(q, -1)
+    phi_SD = np.zeros_like(q)
+    for it in range(Nt):
+        phi_SD[..., it] = skfmm.distance(q[..., it] - threshold, dx = dx)
+
+    phi_flat = phi_SD.flatten()
+    q_flat = q.flatten()
+
+    # make sure to exclude double accuring phi values
+    phi_flat, idx_unique = np.unique(phi_flat, return_index=True)
+    q_flat = q_flat[idx_unique]
+
+    phi_bounds = [np.min(phi_flat), np.max(phi_flat)]
+    phi_interval = np.linspace(phi_bounds[0], phi_bounds[1], Num_support_points)
+    inter = interp1d(phi_flat, q_flat)
+    q_interval = inter(phi_interval)
+
+    N_interval = np.size(q_interval)
+
+    q_interval = np.insert(q_interval, [0, N_interval], front_boundary)
+    phi_interval = np.insert(phi_interval, [0, N_interval], [-phi_max, phi_max])
+
+    N_interval = np.size(q_interval)
+
+    front = interp1d(phi_interval, q_interval)
+
+    return phi_SD, front
 
 
 def FTR_ranks(snapshots, rank_list, front, save_fname = None, max_iter = 40000, print_step = 100, dt = 1.0,

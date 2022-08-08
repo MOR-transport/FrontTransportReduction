@@ -32,6 +32,7 @@ def train_NN(train_set, test_set, train_dict, X, Y, dofs = np.arange(1,10), smoo
             trainer = Trainer(AE, X, Y, train_set=train_set, test_set=test_set, lr=0.0025, lr_min=0.00002,
                               smooth_phi=smooth, log_folder=log_folder)
             trainer.training(trainsteps=2e4, test_every=5e2, save_every=5e4, log_base_name=log_name)
+            #trainer.training(trainsteps=5e3, test_every=5e2, save_every=5e2, log_base_name=log_name)
 
 
 if __name__ == '__main__':

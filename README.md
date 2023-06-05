@@ -15,7 +15,7 @@ This is the repository to the publication:
     }
 
 Please cite our work if you use the code.
-You can read the publication [here](https://link.springer.com/content/pdf/10.1007/s10915-023-02210-9.pdf).
+You can read the publication [here](https://rdcu.be/ddHh4).
 
 All Matlab and Python sources are contained in the `lib/` folder. 
 

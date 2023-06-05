@@ -4,17 +4,18 @@
 
 This is the repository to the publication: 
 
-    @Manual{KrahBuechholzHaeringerReiss2022,
-            title={Front Transport Reduction for Complex Moving Fronts}, 
-            author={Philipp Krah and Steffen Büchholz and Matthias Häringer and Julius Reiss},
-            year={2022},
-            eprint={2202.08208},
-            archivePrefix={arXiv},
-            primaryClass={math.NA}
-            }
+    @article{KrahBuechholzHaeringerReiss2022,
+    title={Front Transport Reduction for Complex Moving Fronts}, 
+    author = {Krah, Philipp and B{\"u}chholz, Steffen and H{\"a}ringer, Matthias and Reiss, Julius},
+    year = {2023},
+    month = {06},
+    volume = {96},
+    journal = {Journal of Scientific Computing},
+    doi = {10.1007/s10915-023-02210-9}
+    }
 
 Please cite our work if you use the code.
-You can read the publication on [arxiv](https://arxiv.org/abs/2202.08208).
+You can read the publication [here](https://link.springer.com/content/pdf/10.1007/s10915-023-02210-9.pdf).
 
 All Matlab and Python sources are contained in the `lib/` folder. 
 
